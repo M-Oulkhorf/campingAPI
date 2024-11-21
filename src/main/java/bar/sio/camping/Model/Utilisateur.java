@@ -1,21 +1,40 @@
 package bar.sio.camping.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotBlank
+    @Size(max = 50)
     private String identifiant;
+
+    @NotBlank
+    @Size(max = 50)
     private String nom;
+
+    @NotBlank
+    @Size(max = 50)
     private String prenom;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
+    @Size(min = 8, message = "Le mot de passe doit contenir au moins 8 caractères")
     private String mdp;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    // Getters et setters
     public int getId() {
         return id;
     }

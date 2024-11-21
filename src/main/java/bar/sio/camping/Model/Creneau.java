@@ -4,23 +4,26 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 @Entity
 public class Creneau {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCreneau;
+
     private LocalTime heureCreneau;
     private LocalDate dateCreneau;
     private int dureeCreneau;
     private int nbPlacesCreneau;
 
     @ManyToOne
+    @JoinColumn(name = "idAnimation", nullable = false)
     private Animation animation;
 
     @ManyToOne
+    @JoinColumn(name = "idLieu", nullable = false)
     private Lieu lieu;
 
+    // Getters et setters
     public int getIdCreneau() {
         return idCreneau;
     }
