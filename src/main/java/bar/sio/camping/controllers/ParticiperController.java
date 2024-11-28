@@ -1,13 +1,12 @@
 package bar.sio.camping.controllers;
 
+import bar.sio.camping.Model.Participer;
 import bar.sio.camping.service.ParticiperService;
 import bar.sio.camping.Model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +22,12 @@ public class ParticiperController {
         List<Utilisateur> campeurs = participerService.getCampeursByCreneauId(creneauId);
         return ResponseEntity.ok(campeurs);
     }
+
+    @PostMapping ("/{campeurId}/{creneauId}")
+    public ResponseEntity<Participer> participerAuCreneau(@RequestBody Participer participer){
+        Participer participeCreneau = participerService.participeCreneau(participer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(participeCreneau);
+    }
+
+
 }

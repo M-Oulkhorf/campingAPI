@@ -17,4 +17,8 @@ public class ParticiperService {
     public List<Utilisateur> getCampeursByCreneauId(int creneauId) {
         return participerRepository.findCampeursByCreneauId(creneauId);
     }
+
+    public Participer participeCreneau(Participer participer) {
+        return participerRepository.save(participer);
+    }
 }
