@@ -1,5 +1,6 @@
 package bar.sio.camping.controllers;
 
+import bar.sio.camping.Model.Participer;
 import bar.sio.camping.service.ParticiperService;
 import bar.sio.camping.Model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,11 @@ public class ParticiperController {
         catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+
+    @PostMapping ("/{campeurId}/{creneauId}")
+    public ResponseEntity<Participer> participerAuCreneau(@RequestBody Participer participer){
+        Participer participeCreneau = participerService.participeCreneau(participer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(participeCreneau);
     }
 }

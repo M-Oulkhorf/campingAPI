@@ -27,4 +27,8 @@ public class ParticiperService {
             throw new IllegalArgumentException("La participation spécifiée n'existe pas.");
         }
     }
+    public Participer participeCreneau(Participer participer) {
+        return participerRepository.save(participer);
+    }
+
 }
