@@ -1,15 +1,15 @@
 package bar.sio.camping.Model;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Participer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @EmbeddedId
-    private ParticiperId id;
+    private ParticiperId participerId;
 
     @ManyToOne
     @JoinColumn(name = "campeurId", insertable = false, updatable = false)
@@ -21,11 +21,11 @@ public class Participer {
 
     // Getters et setters
     public ParticiperId getId() {
-        return id;
+        return participerId;
     }
 
     public void setId(ParticiperId id) {
-        this.id = id;
+        this.participerId = id;
     }
 
     public Utilisateur getCampeur() {
