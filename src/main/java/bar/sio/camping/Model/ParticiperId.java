@@ -5,31 +5,31 @@ import java.util.Objects;
 
 @Embeddable
 public class ParticiperId implements Serializable {
-    private Long campeurId;
-    private Long creneauId;
+    private Integer campeurId;
+    private Integer creneauId;
 
     // Constructeurs
     public ParticiperId() {}
 
-    public ParticiperId(Long campeurId, Long creneauId) {
+    public ParticiperId(Integer campeurId, Integer creneauId) {
         this.campeurId = campeurId;
         this.creneauId = creneauId;
     }
 
     // Getters et setters
-    public Long getCampeurId() {
+    public Integer getCampeurId() {
         return campeurId;
     }
 
-    public void setCampeurId(Long campeurId) {
+    public void setCampeurId(Integer campeurId) {
         this.campeurId = campeurId;
     }
 
-    public Long getCreneauId() {
+    public Integer getCreneauId() {
         return creneauId;
     }
 
-    public void setCreneauId(Long creneauId) {
+    public void setCreneauId(Integer creneauId) {
         this.creneauId = creneauId;
     }
 

@@ -19,7 +19,7 @@ public class ParticiperService {
         return participerRepository.findCampeursByCreneauId(creneauId);
     }
 
-    public void annulerParticipation(Long campeurId, Long creneauId) {
+    public void annulerParticipation(Integer campeurId, Integer creneauId) {
         ParticiperId participerId = new ParticiperId(campeurId, creneauId);
         if (participerRepository.existsById(participerId)) {
             participerRepository.deleteById(participerId);
@@ -29,7 +29,6 @@ public class ParticiperService {
     }
     public Participer participeCreneau(Participer participer) {
         return participerRepository.save(participer);
-        //gfbf
     }
 
 }
