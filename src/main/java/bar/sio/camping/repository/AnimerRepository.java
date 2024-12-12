@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface AnimerRepository extends JpaRepository<Animer, Integer> {
 
-    @Query("SELECT a.creneau FROM Animer a WHERE a.animateur.id = :animateurId")
+    @Query("SELECT a.creneau FROM Animer a WHERE a.animateur.id = :animateurId AND a.creneau.dateCreneau >= CURRENT_DATE")
     List<Creneau> findCreneauxByAnimateurId(@Param("animateurId") int animateurId);
 }

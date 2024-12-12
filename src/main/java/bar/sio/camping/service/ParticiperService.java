@@ -4,6 +4,7 @@ import bar.sio.camping.Model.Participer;
 import bar.sio.camping.Model.ParticiperId;
 import bar.sio.camping.repository.ParticiperRepository;
 import bar.sio.camping.Model.Utilisateur;
+import bar.sio.camping.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,10 @@ public class ParticiperService {
 
     @Autowired
     private ParticiperRepository participerRepository;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
 
     public List<Utilisateur> getCampeursByCreneauId(int creneauId) {
         return participerRepository.findCampeursByCreneauId(creneauId);
@@ -28,7 +33,15 @@ public class ParticiperService {
         }
     }
     public Participer participeCreneau(Participer participer) {
-        return participerRepository.save(participer);
-    }
+        Participer participeCreneau = participerRepository.save(participer);
+        Utilisateur campeur = participer.getCampeur();
 
+        // Réinitialiser les absences uniquement si le campeur n'a pas été absent
+        if (campeur.getNombreAbsences() < 3) {
+          // campeur.setNombreAbsences(0);
+            utilisateurRepository.save(campeur);
+        }
+
+        return participeCreneau;
+    }
 }

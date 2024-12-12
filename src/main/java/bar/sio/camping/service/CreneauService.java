@@ -15,4 +15,7 @@ public class CreneauService {
     public List<Creneau> getAllCreneaux() {
         return creneauRepository.findAll();
     }
+    public Creneau createCreneau(Creneau creneau) {
+        return creneauRepository.save(creneau);  // Enregistre et retourne le créneau créé
+    }
 }

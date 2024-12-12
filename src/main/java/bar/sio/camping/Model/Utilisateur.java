@@ -34,6 +34,9 @@ public class Utilisateur {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
+    private int nombreAbsences;
+
     // Getters et setters
     public int getId() {
         return id;
@@ -89,5 +92,13 @@ public class Utilisateur {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public int getNombreAbsences() {
+        return nombreAbsences;
+    }
+
+    public void setNombreAbsences(int nombreAbsences) {
+        this.nombreAbsences = nombreAbsences;
     }
 }

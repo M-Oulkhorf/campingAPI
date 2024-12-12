@@ -32,7 +32,7 @@ public class UtilisateurController {
     public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
         Optional<Utilisateur> utilisateur = utilisateurService.login(credentials.get("identifiant"), credentials.get("mdp"));
         if (utilisateur.isPresent()) {
-            return ResponseEntity.ok("Connexion réussie !!");
+            return ResponseEntity.ok("Connexion réussie !");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Identifiant ou mot de passe incorrect");
         }
