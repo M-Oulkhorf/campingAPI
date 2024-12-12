@@ -35,10 +35,7 @@ public class ParticiperService {
     public Participer participeCreneau(Participer participer) {
         Participer participeCreneau = participerRepository.save(participer);
         Utilisateur campeur = participer.getCampeur();
-
-        // Réinitialiser les absences uniquement si le campeur n'a pas été absent
         if (campeur.getNombreAbsences() < 3) {
-          // campeur.setNombreAbsences(0);
             utilisateurRepository.save(campeur);
         }
 

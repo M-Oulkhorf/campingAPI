@@ -3,6 +3,7 @@ package bar.sio.camping.controllers;
 import bar.sio.camping.Model.Creneau;
 import bar.sio.camping.Model.Participer;
 import bar.sio.camping.repository.CreneauRepository;
+import bar.sio.camping.repository.ParticiperRepository;
 import bar.sio.camping.repository.UtilisateurRepository;
 import bar.sio.camping.service.AbsenceService;
 import bar.sio.camping.service.ParticiperService;
@@ -29,6 +30,9 @@ public class ParticiperController {
 
     @Autowired
     private AbsenceService absenceService;
+
+    @Autowired
+    private ParticiperRepository participerRepository;
 
     @GetMapping("/{creneauId}/campeurs")
     public ResponseEntity<List<Utilisateur>> getCampeursByCreneau(@PathVariable int creneauId) {
@@ -73,25 +77,35 @@ public class ParticiperController {
 
 
     @PostMapping("/participer")
-    public ResponseEntity<Participer> participerAuCreneau(@RequestBody Participer participer) {
+    public ResponseEntity<String> participerAuCreneau(@RequestBody Participer participer) {
+        // Récupère le campeur et le créneau
         Utilisateur campeur = utilisateurRepository.findById(participer.getId().getCampeurId()).orElse(null);
         Creneau creneau = creneauRepository.findById(participer.getId().getCreneauId()).orElse(null);
 
+        // Vérifie si le campeur et le créneau existent
         if (campeur == null || creneau == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Campeur ou créneau non trouvé.");
         }
 
-        // Vérifie les absences avant d'enregistrer
+        // Vérifie si le campeur a dépassé le seuil d'absences
         if (campeur.getNombreAbsences() >= 3) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Vous ne pouvez pas participer, car vous avez atteint le nombre maximum d'absences autorisées.");
         }
 
-        // Enregistre la participation dans l'état "inscription" (sans réinitialiser les absences)
+        // Compte le nombre actuel de participants pour ce créneau
+        int nombreParticipants = participerRepository.countByCreneau_IdCreneau(participer.getId().getCreneauId());
+
+        // Vérifie si des places sont encore disponibles
+        if (nombreParticipants >= creneau.getNbPlacesCreneau()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Il n'y a plus de place disponible pour ce créneau.");
+        }
+
+        // Enregistre la participation
         participer.setCampeur(campeur);
         participer.setCreneau(creneau);
-        Participer participeCreneau = participerService.participeCreneau(participer);
+        participerService.participeCreneau(participer);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(participeCreneau);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Inscription au créneau réussie !");
     }
 
     @PutMapping("/participation-effectuee/{campeurId}/{creneauId}")

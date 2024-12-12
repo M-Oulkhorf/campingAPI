@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface ParticiperRepository extends JpaRepository<Participer, ParticiperId> {
     List<Participer> findByCreneau(Creneau creneau);
+    int countByCreneau_IdCreneau(Integer idCreneau);
     @Query("SELECT p.campeur FROM Participer p WHERE p.creneau.idCreneau = :creneauId")
     List<Utilisateur> findCampeursByCreneauId(@Param("creneauId") int creneauId);
 }
