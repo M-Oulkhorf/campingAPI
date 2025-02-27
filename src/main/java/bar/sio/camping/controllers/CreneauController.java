@@ -1,6 +1,7 @@
 package bar.sio.camping.controllers;
 
 import bar.sio.camping.Model.Creneau;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import bar.sio.camping.Model.Utilisateur;
 import bar.sio.camping.service.CreneauService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/creneaux")
 public class CreneauController {
     @Autowired

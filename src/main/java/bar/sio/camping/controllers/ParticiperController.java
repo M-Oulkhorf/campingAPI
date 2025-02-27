@@ -1,6 +1,7 @@
 package bar.sio.camping.controllers;
 
 import bar.sio.camping.Model.Creneau;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import bar.sio.camping.Model.Participer;
 import bar.sio.camping.repository.CreneauRepository;
 import bar.sio.camping.repository.ParticiperRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/creneaux")
 public class ParticiperController {
 

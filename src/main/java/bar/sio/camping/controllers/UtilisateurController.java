@@ -1,6 +1,7 @@
 package bar.sio.camping.controllers;
 
 import bar.sio.camping.Model.Creneau;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import bar.sio.camping.Model.Utilisateur;
 import bar.sio.camping.service.AnimerService;
 import bar.sio.camping.service.UtilisateurService;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/utilisateurs")
 public class UtilisateurController {
     @Autowired
