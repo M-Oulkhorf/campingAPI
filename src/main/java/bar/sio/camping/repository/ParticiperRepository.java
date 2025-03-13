@@ -17,4 +17,8 @@ public interface ParticiperRepository extends JpaRepository<Participer, Particip
     int countByCreneau_IdCreneau(Integer idCreneau);
     @Query("SELECT p.campeur FROM Participer p WHERE p.creneau.idCreneau = :creneauId")
     List<Utilisateur> findCampeursByCreneauId(@Param("creneauId") int creneauId);
+
+    @Query("SELECT p.creneau FROM Participer p WHERE p.campeur.id = :campeurId")
+    List<Creneau> findCreneauxByCampeurId(@Param("campeurId") int campeurId);
+
 }

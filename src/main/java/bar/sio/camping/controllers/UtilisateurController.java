@@ -31,12 +31,12 @@ public class UtilisateurController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
-        Optional<Utilisateur> utilisateur = utilisateurService.login(credentials.get("identifiant"), credentials.get("mdp"));
-        if (utilisateur.isPresent()) {
-            return ResponseEntity.ok("Connexion réussie !");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Identifiant ou mot de passe incorrect");
+    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
+        try {
+            Utilisateur utilisateur = utilisateurService.login(credentials.get("identifiant"), credentials.get("mdp"));
+            return ResponseEntity.ok(utilisateur); // Retourne l'objet Utilisateur
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
 

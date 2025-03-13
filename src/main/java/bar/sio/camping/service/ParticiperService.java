@@ -1,5 +1,6 @@
 package bar.sio.camping.service;
 
+import bar.sio.camping.Model.Creneau;
 import bar.sio.camping.Model.Participer;
 import bar.sio.camping.Model.ParticiperId;
 import bar.sio.camping.repository.ParticiperRepository;
@@ -41,4 +42,9 @@ public class ParticiperService {
 
         return participeCreneau;
     }
+
+    public List<Creneau> getCreneauxByCampeurId(int campeurId) {
+        return participerRepository.findCreneauxByCampeurId(campeurId);
+    }
+
 }

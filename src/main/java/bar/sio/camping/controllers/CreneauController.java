@@ -18,8 +18,8 @@ public class CreneauController {
     private CreneauService creneauService;
 
     @GetMapping
-    public ResponseEntity<List<Creneau>> getAllCreneaux() {
-        return ResponseEntity.ok(creneauService.getAllCreneaux());
+    public ResponseEntity<List<Creneau>> getUpcomingCreneaux() {
+        return ResponseEntity.ok(creneauService.getUpcomingCreneaux());
     }
 
     @PostMapping

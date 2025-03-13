@@ -42,12 +42,20 @@ public class ParticiperController {
         return ResponseEntity.ok(campeurs);
     }
 
+    @GetMapping("/{campeurId}/creneaux")
+    public ResponseEntity<List<Creneau>> getCreneauxByCampeur(@PathVariable int campeurId) {
+        List<Creneau> creneaux = participerService.getCreneauxByCampeurId(campeurId);
+        return ResponseEntity.ok(creneaux);
+    }
+
+
     @GetMapping("/{creneauId}/absents")
     public ResponseEntity<List<Utilisateur>> getAbsentsByCreneau(@PathVariable int creneauId) {
         List<Utilisateur> absents = absenceService.getAbsentsByCreneauId(creneauId);
         return ResponseEntity.ok(absents);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @DeleteMapping("/annuler/{campeurId}/{creneauId}")
     public ResponseEntity<String> annulerParticipation(@PathVariable Integer campeurId, @PathVariable Integer creneauId) {
         try {

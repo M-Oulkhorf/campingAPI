@@ -16,11 +16,11 @@ public class UtilisateurService {
         return utilisateurRepository.save(utilisateur);
     }
 
-    public Optional<Utilisateur> login(String identifiant, String mdp) {
+    public Utilisateur login(String identifiant, String mdp) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findByIdentifiant(identifiant);
         if (utilisateur.isPresent() && mdp.equals(utilisateur.get().getMdp())) {
-            return utilisateur;
+            return utilisateur.get(); // Retourne l'objet Utilisateur directement
         }
-        return Optional.empty();
+        throw new RuntimeException("Identifiant ou mot de passe incorrect"); // Lance une exception si l'utilisateur n'est pas trouvé ou si le mot de passe est incorrect
     }
 }
